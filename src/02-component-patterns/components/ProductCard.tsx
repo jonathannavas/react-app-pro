@@ -1,44 +1,25 @@
-import noImage from '../assets/no-image.jpg';
+import { createContext } from 'react';
 import { useProduct } from '../hooks/useProduct';
+import {
+  ProductCardProps,
+  ProductContextProps,
+} from '../interfaces/interfaces';
 import styles from '../styles/styles.module.css';
 
-interface Props {
-  product: Product;
-}
+export const ProductContext = createContext({} as ProductContextProps);
+const { Provider } = ProductContext;
 
-interface Product {
-  id: number;
-  title: string;
-  img?: string;
-}
-
-export const ProductCard = ({ product: { title, img } }: Props) => {
+export const ProductCard = ({ product, children }: ProductCardProps) => {
   const { counter, handleQuantityBy } = useProduct();
-
   return (
-    <div className={styles.productCard}>
-      <img
-        src={img ?? noImage}
-        alt="no resource loaded"
-        className={styles.productImg}
-      />
-
-      <span className={styles.productDescription}>{title}</span>
-      <div className={styles.buttonsContainer}>
-        <button
-          className={styles.buttonMinus}
-          onClick={() => handleQuantityBy(-1)}
-        >
-          -
-        </button>
-        <div className={styles.countLabel}>{counter}</div>
-        <button
-          className={styles.buttonAdd}
-          onClick={() => handleQuantityBy(+1)}
-        >
-          +
-        </button>
-      </div>
-    </div>
+    <Provider
+      value={{
+        counter,
+        handleQuantityBy,
+        product,
+      }}
+    >
+      <div className={styles.productCard}>{children}</div>
+    </Provider>
   );
 };
