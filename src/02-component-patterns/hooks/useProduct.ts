@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OnChangeArgs, Product } from '../interfaces/interfaces';
 
 // Esto es un hook personalizado, es decir no es mas que un método que retorna algo
 
-interface useProductArgs {
+interface UseProductArgs {
   product: Product;
   onChange?: (args: OnChangeArgs) => void;
   value?: number;
@@ -13,15 +13,10 @@ export const useProduct = ({
   onChange,
   product,
   value = 0,
-}: useProductArgs) => {
+}: UseProductArgs) => {
   const [counter, setCounter] = useState(value);
 
-  const isControlled = useRef(!!onChange);
-
   const handleQuantityBy = (value: number) => {
-    if (isControlled.current) {
-      return onChange!({ count: value, product });
-    }
     const newValue = Math.max(counter + value, 0);
     setCounter(newValue);
     onChange && onChange({ count: newValue, product });
