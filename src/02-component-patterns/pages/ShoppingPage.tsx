@@ -4,56 +4,39 @@ import {
   ProductImage,
   ProductTitle,
 } from '../components';
-import { Product } from '../interfaces/interfaces';
 
 import { products } from '../data/products';
-import { useShoppingCart } from '../hooks/useShoppingCart';
 import '../styles/custom-styles.css';
 
-export const ShoppingPage = () => {
-  const { shoppingCart, onProductCountChange } = useShoppingCart();
+const product = products[0];
 
+export const ShoppingPage = () => {
   return (
     <div>
       <h1>ShoppingPage</h1>
       <hr />
-      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {products.map((product: Product) => {
-          const { id, title, img } = product;
-          return (
-            <ProductCard
-              product={product}
-              className="bg-dark text-white"
-              key={id}
-              value={shoppingCart[product.id]?.count || 0}
-              onChange={onProductCountChange}
-            >
-              <ProductImage className="custom-image" img={img} />
-              <ProductTitle className="text-bold" title={title} />
-              <ProductButtons className="custom-buttons" />
-            </ProductCard>
-          );
-        })}
-      </div>
 
-      <div className="shopping-cart">
-        {Object.entries(shoppingCart).map(([key, product]) => (
-          <ProductCard
-            product={product}
-            className="bg-dark text-white"
-            style={{ width: '100px' }}
-            key={product.id}
-            value={product.count}
-            onChange={onProductCountChange}
-          >
+      <ProductCard
+        product={product}
+        className="bg-dark text-white"
+        initialValues={{ count: 4, maxCount: 10 }}
+      >
+        {({ reset, handleQuantity, isMaxCountReached, count }) => (
+          <>
             <ProductImage className="custom-image" />
-            <ProductButtons
-              className="custom-buttons"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            />
-          </ProductCard>
-        ))}
-      </div>
+            <ProductTitle className="text-bold" />
+            <ProductButtons className="custom-buttons" />
+
+            <button onClick={reset}>Resetear</button>
+            <button onClick={() => handleQuantity(-2)}>-2</button>
+            {!isMaxCountReached && (
+              <button onClick={() => handleQuantity(+2)}>+2</button>
+            )}
+            <br />
+            <span>{count}</span>
+          </>
+        )}
+      </ProductCard>
     </div>
   );
 };
