@@ -1,0 +1,78 @@
+[
+  {
+    "type": "input",
+    "name": "firstName",
+    "placeholder": "Ingresa el nombre",
+    "label": "Nombre",
+    "value": "",
+    "validations": [
+      {
+        "type": "required"
+      },
+      {
+        "type": "min",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "type": "input",
+    "name": "lastName",
+    "placeholder": "Ingresa el apellido",
+    "label": "Apellido",
+    "value": "",
+    "validations": [
+      {
+        "type": "required"
+      },
+      {
+        "type": "min",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "type": "email",
+    "name": "email",
+    "placeholder": "Ingresa el correo electronico",
+    "label": "Correo electrónico",
+    "value": "",
+    "validations": [
+      {
+        "type": "required"
+      },
+      {
+        "type": "email"
+      }
+    ]
+  },
+  {
+    "type": "select",
+    "name": "favouriteGame",
+    "label": "Juegos favoritos",
+    "value": "",
+    "validations": [
+      {
+        "type": "required"
+      }
+    ],
+    "options": [
+      {
+        "id": "sm",
+        "label": "Super mario bros"
+      },
+      {
+        "id": "fifa",
+        "label": "Fifa 2025"
+      },
+      {
+        "id": "pes",
+        "label": "Pro evolution soccer 2025"
+      },
+      {
+        "id": "dota2",
+        "label": "Dota 2"
+      }
+    ]
+  }
+]
